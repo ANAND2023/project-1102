@@ -23,10 +23,13 @@ import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 
-const Dashboard = () => {
+const Dashboard = ({setLandingPage} ) => {
   const theme = useTheme();
   const smScreen = useMediaQuery(theme.breakpoints.up("sm"));
   const colors = tokens(theme.palette.mode);
+ 
+  
+
   return (
     <Box m="20px">
       {/* HEADER */}
@@ -73,6 +76,7 @@ const Dashboard = () => {
               // increase="+14%"
               icon={
                 <PersonIcon
+                    // onClick={userclicked}
                   sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
                 />
               }

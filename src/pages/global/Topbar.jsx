@@ -8,13 +8,38 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+
+import SaveIcon from '@mui/icons-material/Save';
+import Popover from '@mui/material/Popover';
 import SearchIcon from "@mui/icons-material/Search";
 import { useProSidebar } from "react-pro-sidebar";
-const Topbar = () => {
+import Button from '@mui/material/Button';
+const Topbar = ({name , setLandingPage}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const { toggleSidebar, broken, rtl } = useProSidebar();
+
+  const userclicked = ()=>{
+    console.log("User Clicked ")
+  }
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+ 
+  const gotologinpage = ()=>{
+    setLandingPage(true)
+  }
+
 
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
@@ -50,7 +75,7 @@ const Topbar = () => {
                     color={colors.grey[100]}
                     style={{paddingLeft:"2px"}}
                   >
-                  Anand
+                  {name}
                   </Typography>
         </Box>
       </Box>
@@ -70,7 +95,7 @@ const Topbar = () => {
           <SettingsOutlinedIcon />
         </IconButton>
         <IconButton>
-          <PersonOutlinedIcon />
+          <PersonOutlinedIcon  onClick={handleClick} />
         </IconButton>
         {broken && rtl && (
           <IconButton
@@ -80,6 +105,23 @@ const Topbar = () => {
             <MenuOutlinedIcon />
           </IconButton>
         )}
+        <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+      >
+        {/*<Typography sx={{ p: 2 }}>The content of the Popover.</Typography> */} 
+        <Button 
+        onClick={ gotologinpage }
+        variant="contained" color="success">
+        Logout
+      </Button>
+      </Popover>
       </Box>
     </Box>
   );

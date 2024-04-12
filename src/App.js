@@ -17,34 +17,52 @@ import Line from "./pages/line";
 import Pie from "./pages/pie";
 import FAQ from "./pages/faq";
 import Geography from "./pages/geography";
+import { useState } from "react";
+import Login from "./pages/login/Login";
 
 const App = () => {
   const [theme, colorMode] = useMode();
+  const [landingpage,setLandingPage] = useState(true);
+  const [name,setName] = useState("");
   return (
     
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <MyProSidebarProvider>
-          <div style={{ height: "100%", width: "100%" }}>
-            <main>
-              <Topbar />
-              <Routes>
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/analytics" element={<Team />} />
-                <Route path="/contacts" element={<Contacts />} />
-                <Route path="/invoices" element={<Invoices />} />
-                <Route path="/form" element={<Form />} />
-                <Route path="/bar" element={<Bar />} />
-                <Route path="/pie" element={<Pie />} />
-                <Route path="/line" element={<Line />} />
-                <Route path="/faq" element={<FAQ />} />
-                <Route path="/calendar" element={<Calendar />} />
-                <Route path="/geography" element={<Geography />} />
-              </Routes>
-            </main>
+
+        {
+          landingpage &&  <div style={{ height: "100%", width: "100%" }}>
+              <main>
+                  <Routes>
+                  <Route path="/" element={<Login  setLandingPage = { setLandingPage }  setName = {setName} />}/>
+                  </Routes>
+              </main>
           </div>
-        </MyProSidebarProvider>
+        }
+
+       {!landingpage &&  <MyProSidebarProvider>
+        <div style={{ height: "100%", width: "100%" }}>
+          <main>
+            <Topbar name={name} setLandingPage ={setLandingPage} />
+            <Routes>
+              <Route path="/" element={<Dashboard />}>
+              
+              <Route path="analytics" element={<Team />} />
+              <Route path="contacts" element={<Contacts />} />
+              <Route path="invoices" element={<Invoices />} />
+              <Route path="form" element={<Form />} />
+              <Route path="bar" element={<Bar />} />
+              <Route path="pie" element={<Pie />} />
+              <Route path="line" element={<Line />} />
+              <Route path="faq" element={<FAQ />} />
+              <Route path="calendar" element={<Calendar />} />
+              <Route path="geography" element={<Geography />} />
+              </Route>
+              
+            </Routes>
+          </main>
+        </div>
+      </MyProSidebarProvider>}
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
