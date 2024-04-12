@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import './Login.css'; // Assuming you have CSS styles for this form
 
-const Login = () => {
+const Login = ({setLandingPage ,  setName}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = (e) => {
     e.preventDefault();
+    console.log("Form submitted")
     console.log('Username:', username);
     console.log('Password:', password);
+    setName(username);
+    setLandingPage(false);
+    
     // You can add more logic here, such as sending data to an API for authentication
   };
 
@@ -55,7 +59,7 @@ const Login = () => {
                 />
               </div>
             </div>
-            <a href="#">Forgot Password?</a>
+            <a href="/no">Forgot Password?</a>
             <input type="submit" className="btn" value="Login" />
           </form>
         </div>
